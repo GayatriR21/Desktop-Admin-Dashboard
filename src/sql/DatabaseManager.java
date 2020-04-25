@@ -7,6 +7,7 @@ package sql;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -18,30 +19,24 @@ import java.util.Properties;
  */
 public class DatabaseManager {
     
-    Connection connection;
+    public Connection connection;
     
-    // create properties
-    private Properties getProperties() {
-        Properties properties = new Properties();
-        if (properties == null) {
-            properties = new Properties();
-            properties.setProperty("user", DatabaseConstants.USERNAME);
-            properties.setProperty("password", DatabaseConstants.PASSWORD);
-        }
-        return properties;
+    public DatabaseManager() {
     }
+    
 
     // connect database
-    public Connection connect() {
+    public void connect() {
         if (connection == null) {
             try {
-                Class.forName(DatabaseConstants.DATABASE_DRIVER);
-                connection = DriverManager.getConnection(DatabaseConstants.DATABASE_URL, getProperties());
-            } catch (ClassNotFoundException | SQLException e) {
+                
+                connection = DriverManager.getConnection("jdbc:mysql://" + DatabaseConstants.DATABASE_URL + "/" + DatabaseConstants.DATABASE_NAME + "?" +
+                                   "user=" + DatabaseConstants.USERNAME + "&password=" + DatabaseConstants.PASSWORD + "&useLegacyDatetimeCode=false&serverTimezone=UTC");
+                
+            } catch (SQLException  e) {
                 e.printStackTrace();
             }
         }
-        return connection;
     }
 
     // disconnect database
@@ -59,6 +54,11 @@ public class DatabaseManager {
     public ResultSet query(String statement) throws SQLException {
         Statement stmt = connection.createStatement();
         ResultSet resultSet = stmt.executeQuery(statement);
+        return resultSet;
+    }
+    
+    public ResultSet query(PreparedStatement statement) throws SQLException {
+        ResultSet resultSet = statement.executeQuery();
         return resultSet;
     }
     

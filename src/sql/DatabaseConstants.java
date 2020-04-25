@@ -11,9 +11,10 @@ package sql;
  */
 public class DatabaseConstants {
     
-    protected static final String DATABASE_DRIVER = "com.mysql.cj.jdbc.Driver";
-    protected static final String DATABASE_URL = "jdbc:mysql://localhost:3306/admin_dashboard";
-    protected static final String USERNAME = "root";
+    protected static final String DATABASE_DRIVER = "com.mysql.jdbc.Driver";
+    protected static final String DATABASE_URL = "localhost:3306";
+    protected static final String DATABASE_NAME = "dashboard_db";
+    protected static final String USERNAME = "dashboard_user";
     protected static final String PASSWORD = "";
 
 }
