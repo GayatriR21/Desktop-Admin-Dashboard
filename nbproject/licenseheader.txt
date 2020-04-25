@@ -1,0 +1,9 @@
+<#if licenseFirst??>
+${licenseFirst}
+</#if>
+${licensePrefix}Name: Callum Bass
+${licensePrefix}Student ID: w1682693
+${licensePrefix}Software Development - Group Project
+<#if licenseLast??>
+${licenseLast}
+</#if>
