@@ -24,7 +24,19 @@ public class DatabaseManager {
     public DatabaseManager() {
     }
     
-
+    public void connectWithCredentials(String url, String name, String user, String pass) {
+        if (connection == null) {
+            try {
+                
+                connection = DriverManager.getConnection("jdbc:mysql://" + url + "/" + name + "?" +
+                                   "user=" + user + "&password=" + pass + "&useLegacyDatetimeCode=false&serverTimezone=UTC");
+                
+            } catch (SQLException  e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    
     // connect database
     public void connect() {
         if (connection == null) {
