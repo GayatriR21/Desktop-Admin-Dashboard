@@ -1,0 +1,41 @@
+/*
+Name: Callum Bass
+Student ID: w1682693
+Software Development - Group Project
+*/
+/* 
+    Created on : 26 Apr 2020, 17:07:08
+    Author     : Callum Bass <w1682693>
+*/
+
+.button{
+    -fx-text-fill: rgb(30, 100, 166);
+    -fx-border-color: rgb(30, 100, 166);
+    -fx-background-color: transparent;
+    -fx-border-radius: 0;
+    -fx-padding: 3 6 6 6;
+}
+
+.blue {
+    -fx-text-fill: rgb(255, 255, 255);
+    -fx-border-color: rgb(255, 255, 255);
+    -fx-background-color: transparent;
+    -fx-border-radius: 0;
+    -fx-padding: 3 6 6 6;
+}
+
+.white-pane {
+    -fx-background-color: rgb(255, 255, 255);
+}
+
+.blue-pane {
+    -fx-background-color: rgb(30, 100, 166);
+}
+
+.textfield {
+    
+}
+
+.logo {
+    -fx-text-fill: rgb(255, 255, 255);
+}
