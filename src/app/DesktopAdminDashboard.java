@@ -5,6 +5,7 @@
  */
 package app;
 
+import graph.ExampleGraph;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -273,7 +274,7 @@ grid.getColumnConstraints().add(column2);
     HBox hbButtons = new HBox();
     hbButtons.setSpacing(10.0);
     
-    
+    grid.getChildren().add(ExampleGraph.createGraph());
 
     
 
