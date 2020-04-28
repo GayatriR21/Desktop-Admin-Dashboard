@@ -25,11 +25,13 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import sql.Login;
+import sql.Register;
 
 
 public class DesktopAdminDashboard extends Application {
@@ -67,6 +69,8 @@ public class DesktopAdminDashboard extends Application {
             border.setCenter(createMainPane());
         } else if (action.equals("login")) {
             border.setCenter(createLoginPane());
+        } else if (action.equals("register")) {
+            border.setCenter(createRegisterPane());
         }
         
         
@@ -97,18 +101,22 @@ public class DesktopAdminDashboard extends Application {
         
         vbox.getStyleClass().add("blue-pane");
 
-        Text title = new Text("Graphs");
+        Text title = new Text("Graph Menu");
+        title.setFill(Color.WHITE); 
+        
         title.setFont(Font.font("Arial", FontWeight.BOLD, 14));
         vbox.getChildren().add(title);
 
         Hyperlink options[] = new Hyperlink[] {
-            new Hyperlink("Sales"),
-            new Hyperlink("Marketing"),
-            new Hyperlink("Distribution"),
-            new Hyperlink("Costs")};
+            new Hyperlink("Graph 1"),
+            new Hyperlink("Graph 2"),
+            new Hyperlink("Graph 3"),
+            new Hyperlink("Graph 4")};
 
+        
         for (int i=0; i<4; i++) {
             VBox.setMargin(options[i], new Insets(0, 0, 0, 8));
+            options[i].getStyleClass().add("blue");
             vbox.getChildren().add(options[i]);
         }
 
@@ -198,6 +206,11 @@ buttonCurrent.getStyleClass().add("blue");
     buttonProjected.setPrefSize(100, 20);
     buttonProjected.getStyleClass().add("blue");
     
+    buttonProjected.setOnAction((ActionEvent e) -> {
+        action = "register";
+            refresh();
+        });
+    
     hbox.getChildren().addAll(buttonCurrent, buttonProjected);
     }
     
@@ -248,6 +261,76 @@ grid.getColumnConstraints().add(column2);
             alert("Error", "Sorry, there was an issue logging you in!");
         } else {
             alert("Success", "You have been logged in!");
+            refresh();
+        }
+        });
+    
+    
+    btnClear.setOnAction(new EventHandler<ActionEvent>() {
+    @Override public void handle(ActionEvent e) {
+        tfName.setText("");
+        pfPwd.setText("");
+       
+    }
+});
+    
+    return grid;
+    }
+    
+    
+     public GridPane createRegisterPane() {
+        GridPane grid = new GridPane();
+    grid.setHgap(10);
+    grid.setVgap(12);
+    grid.setAlignment(Pos.CENTER);
+
+    HBox hbButtons = new HBox();
+    hbButtons.setSpacing(8.0);
+    
+    
+
+
+
+ColumnConstraints column1 = new ColumnConstraints();
+column1.setHalignment(HPos.RIGHT);
+grid.getColumnConstraints().add(column1); 
+
+ColumnConstraints column2 = new ColumnConstraints();
+column2.setHalignment(HPos.LEFT);
+grid.getColumnConstraints().add(column2); 
+
+
+    Button btnSubmit = new Button("Register");
+    Button btnClear = new Button("Clear");
+    Button btnExit = new Button("Exit");
+
+    Label lblName = new Label("User name:");
+    TextField tfName = new TextField();
+    
+    Label lblPwd = new Label("Password:");
+    PasswordField pfPwd = new PasswordField();
+    
+    Label confirmLabel = new Label("Confirm:");
+    PasswordField confirmField = new PasswordField();
+
+    hbButtons.getChildren().addAll(btnSubmit, btnClear, btnExit);
+    grid.add(lblName, 0, 0);
+    grid.add(tfName, 1, 0);
+    grid.add(lblPwd, 0, 1);
+    grid.add(pfPwd, 1, 1);
+    
+    grid.add(confirmLabel, 0, 2);
+    grid.add(confirmField, 1, 2);
+    
+    grid.add(hbButtons, 0, 3, 2, 3);
+    
+    btnSubmit.setOnAction((ActionEvent e) -> {
+        boolean registered = Register.register(tfName.getText(), pfPwd.getText(), confirmField.getText());
+        if (!registered){
+            alert("Error", "Sorry, there was an issue registering you!");
+        } else {
+            alert("Success", "You've been registered, now login!");
+            action = "login";
             refresh();
         }
         });
